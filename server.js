@@ -11,6 +11,7 @@ import { catchAsyncErrors } from "./src/middlewares/catchAsyncErrors.js"
 //server initialization
 const server = express();
 
+//using middlewares here
 server.use(errorHandlerMiddleware);
 
 server.listen(process.env.PORT, () => {
