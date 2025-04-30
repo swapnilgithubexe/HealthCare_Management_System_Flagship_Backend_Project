@@ -1,3 +1,5 @@
+import { logger } from "../utils/logger.js";
+
 export class ErrorHandler extends Error {
   constructor(message, statusCode) {
     super(message);
@@ -9,6 +11,8 @@ export class ErrorHandler extends Error {
 
 //error handling middleware
 export const errorHandlerMiddleware = (err, req, res, next) => {
+  logger.error(err.message);
+
   let statusCode = err.statusCode || 500;
   let message = err.message || "Internal Server Error"
 

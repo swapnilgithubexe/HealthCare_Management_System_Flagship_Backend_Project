@@ -1,5 +1,6 @@
 import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import { User } from "../models/user.model.js";
+import { logger } from "../utils/logger.js";
 
 export const registerUser = catchAsyncErrors(async (req, res, next) => {
   const { name, email, password, phone } = req.body;
@@ -16,6 +17,7 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
   //if not, create a new instance
   const newUser = new User({ name, email, password, phone });
   await newUser.save();
+  logger.info(`New user has been added: ${name} with email: ${email}, and the role given is ${role}`)
 
   const userResponse = {
     _id: newUser._id,
