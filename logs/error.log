@@ -1,3 +1,13 @@
 [2025-05-03 03:21:07] ERROR: OTP Expired
 [2025-05-03 03:22:55] ERROR: OTP Expired
 [2025-05-03 03:23:02] ERROR: OTP Expired
+[2025-05-03 03:32:59] ERROR: OTP Expired
+[2025-05-03 03:33:02] ERROR: OTP Expired
+[2025-05-03 03:33:04] ERROR: [object Object]
+[2025-05-03 03:33:53] ERROR: [object Object]
+[2025-05-03 03:39:04] ERROR: OTP Expired
+[2025-05-03 03:40:00] ERROR: [object Object]
+[2025-05-03 03:40:43] ERROR: [object Object]
+[2025-05-03 03:41:04] ERROR: [object Object]
+[2025-05-03 03:42:15] ERROR: Rate limit exceeded - Too many OTP requests, Requested to try again later
+[2025-05-03 03:42:23] ERROR: Too many attempts - Requested to try again later

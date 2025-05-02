@@ -10,3 +10,30 @@
 [2025-05-03 03:23:02] ERROR: OTP Expired
 [2025-05-03 03:23:20] INFO: Email sent
 [2025-05-03 03:26:38] INFO: Database connected
+[2025-05-03 03:27:11] INFO: Database connected
+[2025-05-03 03:32:55] INFO: Database connected
+[2025-05-03 03:32:59] ERROR: OTP Expired
+[2025-05-03 03:33:02] ERROR: OTP Expired
+[2025-05-03 03:33:04] ERROR: [object Object]
+[2025-05-03 03:33:42] INFO: Email sent
+[2025-05-03 03:33:49] INFO: Email sent
+[2025-05-03 03:33:53] ERROR: [object Object]
+[2025-05-03 03:35:36] INFO: Database connected
+[2025-05-03 03:38:59] INFO: Database connected
+[2025-05-03 03:39:04] ERROR: OTP Expired
+[2025-05-03 03:39:15] INFO: Email sent
+[2025-05-03 03:39:22] INFO: Email sent
+[2025-05-03 03:40:00] ERROR: [object Object]
+[2025-05-03 03:40:41] INFO: User logged in with email: swapnildutta2002@gmail.com
+[2025-05-03 03:40:43] ERROR: [object Object]
+[2025-05-03 03:40:57] INFO: Database connected
+[2025-05-03 03:40:58] INFO: User logged in with email: swapnildutta2002@gmail.com
+[2025-05-03 03:41:01] INFO: User logged in with email: swapnildutta2002@gmail.com
+[2025-05-03 03:41:04] ERROR: [object Object]
+[2025-05-03 03:41:55] INFO: Database connected
+[2025-05-03 03:42:05] INFO: Email sent
+[2025-05-03 03:42:13] INFO: Email sent
+[2025-05-03 03:42:15] ERROR: Rate limit exceeded - Too many OTP requests, Requested to try again later
+[2025-05-03 03:42:19] INFO: User logged in with email: swapnildutta2002@gmail.com
+[2025-05-03 03:42:21] INFO: User logged in with email: swapnildutta2002@gmail.com
+[2025-05-03 03:42:23] ERROR: Too many attempts - Requested to try again later
