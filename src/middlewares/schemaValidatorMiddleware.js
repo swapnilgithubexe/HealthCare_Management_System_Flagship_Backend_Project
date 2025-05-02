@@ -6,3 +6,8 @@ export const registerValidator = [
   check("password").isLength({ min: 8 }).withMessage("Password should be at least 8 characters"),
   check("phone").matches(/^\d{10}$/).withMessage("Phone number should be exactly 10 digits"),
 ];
+
+export const loginValidator = [
+  check("email", "Please enter a valid email").isEmail(),
+  check("password", "password is required").notEmpty()
+];

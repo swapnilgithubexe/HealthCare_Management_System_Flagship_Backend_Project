@@ -107,8 +107,8 @@ export const verifyUser = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-//login function
-export const loginUser = catchAsyncErrors(async (req, res, next) => {
+//login function using password
+export const loginUserUsingPassword = catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
 
   //check if the user exists
@@ -131,8 +131,19 @@ export const loginUser = catchAsyncErrors(async (req, res, next) => {
 
   logger.info(`${existingUser.name} just logged in.`);
 
+  const token = jwt.sign({
+    userId: existingUser._id,
+    email: existingUser.email
+  },
+    process.env.JWT_SECRET, {
+    expiresIn: "7d"
+  });
+
   res.status(200).json({
     success: true,
-    message: `Welcome Back ${existingUser.name}`
+    message: `Welcome Back ${existingUser.name}`,
+    token: token
   });
 });
+
+//login using OTP
