@@ -2,6 +2,7 @@ import rateLimit from "express-rate-limit";
 
 export const otpRequestLimiter = rateLimit({
   windowMs: 5 * 60 * 1000, //5 mins
+  //the counter resets to 0 after 5 mins
   max: 2,
   message: {
     success: false,

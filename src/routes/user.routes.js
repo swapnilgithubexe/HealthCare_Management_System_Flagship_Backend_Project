@@ -6,8 +6,8 @@ import { otpRequestLimiter, otpVerifyLimiter } from "../middlewares/rateLimiters
 
 export const userRouter = express.Router();
 
-userRouter.post("/register-new-user", [registerValidator, validationResultHandler], registerUser);
-userRouter.post("/verify-user", verifyUser);
+userRouter.post("/register-new-user", [registerValidator, validationResultHandler], otpRequestLimiter, registerUser);
+userRouter.post("/verify-user", otpVerifyLimiter, verifyUser);
 
 userRouter.post("/login-pass", [loginValidator, validationResultHandler], loginUserUsingPassword);
 
