@@ -5,6 +5,7 @@ import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import { User } from "../models/user.model.js";
 import { logger } from "../utils/logger.js";
 import sendMail from "../utils/sendMail.js";
+import { ErrorHandler } from "../middlewares/errorHandler.js";
 
 
 //Register a new user
@@ -46,7 +47,7 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
     name, email, password, phone
   };
 
-  //Geberate a OTP
+  //Generate a OTP
   const otp = Math.floor(Math.random() * 1000000);
 
   //token to verify the OTP
@@ -147,3 +148,79 @@ export const loginUserUsingPassword = catchAsyncErrors(async (req, res, next) =>
 });
 
 //login using OTP
+
+export const loginUsingOTP = catchAsyncErrors(async (req, res, next) => {
+  const { email } = req.body;
+
+  const existingUser = await User.findOne({ email });
+  if (!existingUser) {
+    return res.status(400).json({
+      success: false,
+      message: `User not found with Id: ${email}`
+    });
+  }
+
+
+  //Generate an OTP
+  const otp = Math.floor(Math.random() * 1000000);
+
+  //token to verify the OTP
+  const activationToken = jwt.sign({
+    email, otp
+  },
+    process.env.ACTIVATION_SECRET,
+    { expiresIn: "5m" });
+
+  const { name } = existingUser;
+  const data = {
+    name, otp
+  }
+  await sendMail(email, "HealthCare Management", data);
+
+  res.status(200).json({
+    success: true,
+    message: "OTP sent to the email address",
+    activationToken
+  });
+});
+
+
+//verify OTP login
+export const verifyLoginOTP = catchAsyncErrors(async (req, res, next) => {
+  const { otp, activationToken } = req.body;
+
+  //token verification
+  let payload;
+  try {
+    payload = jwt.verify(activationToken, process.env.ACTIVATION_SECRET);
+
+  } catch (error) {
+    return next(new ErrorHandler("OTP Expired", 400))
+  }
+
+  if (payload.otp !== otp) {
+
+    return new ErrorHandler("Invalid OTP: OTP did not match", 401)
+
+  }
+
+  //get user
+  const user = await User.findOne({ email: payload.email });
+  if (!user) {
+    return new ErrorHandler("User not found", 400);
+  }
+
+  const token = jwt.sign({
+    userId: user._id, email: user.email
+  },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" })
+
+  logger.info(`User logged in with email: ${payload.email}`)
+  res.status(200).json({
+    success: true,
+    message: `Login successful`,
+    token: token
+  })
+
+})
