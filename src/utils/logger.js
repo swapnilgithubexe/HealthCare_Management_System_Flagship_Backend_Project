@@ -1,17 +1,39 @@
 import winston from "winston";
 
+const { combine, timestamp, json } = winston.format;
+const levelFilter = (level) => {
+  return winston.format((info) => info.level === level ? info : false)();
+};
 
 export const logger = winston.createLogger({
   level: "info",
-  format: winston.format.combine(
-    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-    winston.format.printf(({ timestamp, level, message }) => {
-      return `[${timestamp}] ${level.toUpperCase()}: ${message}`
-    })
+  format: combine(
+    timestamp(),
+    json()
   ),
   transports: [
     new winston.transports.Console(),
-    new winston.transports.File({ filename: "logs/error.log", level: "error" }),
-    new winston.transports.File({ filename: "logs/combined.log" })
+
+    //Error logging
+    new winston.transports.File({
+      filename: "logs/error.log",
+      level: 'error',
+      format: combine(
+        levelFilter('error'),
+        timestamp(),
+        json()
+      )
+    }),
+
+    //info only
+    new winston.transports.File({
+      filename: "logs/info.log",
+      level: 'info',
+      format: combine(
+        levelFilter('info'),
+        timestamp(),
+        json()
+      )
+    })
   ]
 })

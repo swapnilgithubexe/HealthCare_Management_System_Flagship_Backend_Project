@@ -13,8 +13,8 @@ export const otpRequestLimiter = rateLimit({
     logger.error("Rate limit exceeded - Too many OTP requests, Requested to try again later", {
       ip: req.ip,
       route: req.originalUrl
-    }),
-      res.status(options.statusCode).json(options.message)
+    });
+    res.status(options.statusCode).json(options.message)
   }
 });
 
@@ -29,8 +29,8 @@ export const otpVerifyLimiter = rateLimit({
     logger.error("Too many attempts - Requested to try again later", {
       ip: req.ip,
       route: req.originalUrl
-    }),
-      res.status(options.statusCode).json(options.message)
+    });
+    res.status(options.statusCode).json(options.message)
 
   }
 });
